@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Technique - KGP Compta</title>
+    <style>
+        /* --- Reset & Base Styles --- */
+        :root {
+            --primary-color: #3b82f6; 
+            --primary-hover: #2563eb; 
+            --dark-bg: #09090b;
+            --dark-panel: #121214;
+            --dark-border: #27272a;
+            --dark-text: #e2e8f0;
+            --dark-text-secondary: #94a3b8;
+            --accent-color: #a855f7; 
+            --accent-hover: #9333ea;
+            --success-color: #22c55e;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-sans); background-color: var(--dark-bg); color: var(--dark-text); line-height: 1.6; font-size: 16px; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        /* --- Header --- */
+        .main-header { padding: 15px 0; position: sticky; top: 0; background-color: rgba(9, 9, 11, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); z-index: 100; border-bottom: 1px solid var(--dark-border); }
+        .main-header .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo-container { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .app-icon-small { width: 35px; height: auto; border-radius: 8px; box-shadow: 0 0 10px rgba(168, 85, 247, 0.4); }
+        .logo-text { font-size: 1.5rem; font-weight: 700; color: white; }
+        .logo-text span { color: var(--accent-color); }
+        .main-nav a { margin-left: 30px; color: var(--dark-text-secondary); text-decoration: none; transition: color 0.3s; font-weight: 500;}
+        .main-nav a:hover, .main-nav a.active { color: white; }
+
+        /* --- Page Header --- */
+        .page-header { text-align: center; padding: 60px 0 40px; border-bottom: 1px solid var(--dark-border); background: radial-gradient(circle at top, rgba(59,130,246,0.1), transparent 70%); }
+        .page-header h1 { font-size: 3rem; font-weight: 800; margin-bottom: 1rem; color: white; }
+        .page-header h1 span { color: var(--primary-color); }
+        .page-header p { font-size: 1.2rem; color: var(--dark-text-secondary); max-width: 600px; margin: 0 auto; }
+
+        /* --- Main Content --- */
+        .support-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding: 60px 0; }
+        
+        /* Form Section */
+        .support-form-card { background-color: var(--dark-panel); padding: 40px; border-radius: 16px; border: 1px solid var(--dark-border); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .support-form-card h2 { font-size: 1.5rem; color: white; margin-bottom: 20px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; color: var(--dark-text-secondary); font-size: 0.9rem; }
+        .form-group input, .form-group textarea { width: 100%; padding: 12px 15px; border-radius: 8px; border: 1px solid var(--dark-border); background-color: var(--dark-bg); color: white; font-family: inherit; transition: border-color 0.3s; }
+        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--primary-color); }
+        .btn-submit { background-color: var(--primary-color); color: white; border: none; padding: 14px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s; width: 100%; font-size: 1rem; }
+        .btn-submit:hover { background-color: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4); }
+
+        /* Quick Contact options */
+        .quick-contacts { margin-top: 30px; display: flex; gap: 15px; }
+        .contact-box { flex: 1; background: var(--dark-bg); border: 1px solid var(--dark-border); padding: 20px; border-radius: 12px; text-align: center; text-decoration: none; color: var(--dark-text); transition: all 0.3s; }
+        .contact-box:hover { border-color: var(--primary-color); background: rgba(59, 130, 246, 0.05); }
+        .contact-box svg { color: var(--primary-color); margin-bottom: 10px; width: 32px; height: 32px; }
+        .contact-box span { display: block; font-weight: 600; }
+        .contact-box p { font-size: 0.85rem; color: var(--dark-text-secondary); margin-top: 5px; }
+
+        /* FAQ Section */
+        .faq-section { padding-top: 20px; }
+        .faq-section h2 { font-size: 1.8rem; margin-bottom: 30px; color: white; border-bottom: 1px solid var(--dark-border); padding-bottom: 10px;}
+        .faq-item { background-color: var(--dark-panel); border: 1px solid var(--dark-border); border-radius: 8px; margin-bottom: 15px; }
+        .faq-item summary { padding: 20px; font-weight: 600; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; color: white;}
+        .faq-item summary::-webkit-details-marker { display: none; }
+        .faq-item summary::after { content: '+'; font-size: 1.5rem; transition: transform 0.2s; color: var(--primary-color); }
+        .faq-item[open] summary::after { transform: rotate(45deg); }
+        .faq-content { padding: 0 20px 20px; color: var(--dark-text-secondary); }
+        .faq-content code { background: var(--dark-bg); padding: 2px 6px; border-radius: 4px; color: var(--accent-color); font-size: 0.9em; }
+
+        /* --- Footer --- */
+        .main-footer { padding: 40px 0 20px; background-color: #050505; border-top: 1px solid var(--dark-border); text-align: center; color: var(--dark-text-secondary); }
+        .footer-links { margin: 20px 0; display: flex; justify-content: center; flex-wrap: wrap; gap: 20px;}
+        .footer-links a { color: var(--dark-text-secondary); text-decoration: none; transition: color 0.3s;}
+        .footer-links a:hover { color: var(--accent-color); }
+
+        @media (max-width: 768px) {
+            .support-grid { grid-template-columns: 1fr; gap: 40px; }
+            .page-header h1 { font-size: 2.2rem; }
+            .main-nav { display: none; }
+            .quick-contacts { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo-container">
+                <img src="icon-xpf.png" alt="KGP Compta" class="app-icon-small">
+                <div class="logo-text">KGP <span>Compta</span></div>
+            </a>
+            <nav class="main-nav">
+                <a href="index.html">Retour à l'accueil</a>
+                <!--<a href="activation2.html">Activer ma licence</a>
+                <a href="support.html" class="active" style="color: var(--primary-color);">Support</a>-->
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1>Besoin <span>d'aide ?</span></h1>
+                <p>Notre équipe technique est là pour vous accompagner. Consultez notre FAQ ou envoyez-nous un message directement.</p>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <div class="support-grid">
+                    
+                    <!-- Left Column: Form & Contacts -->
+                    <div>
+                        <div class="support-form-card">
+                            <h2>Envoyer une demande</h2>
+                            <p style="color: var(--dark-text-secondary); margin-bottom: 25px; font-size: 0.9rem;">Remplissez ce formulaire pour créer un ticket de support. Nous vous répondrons dans les 24h ouvrées.</p>
+                            
+                            <!-- Note: Si vous n'avez pas de serveur pour gérer l'envoi d'email, vous pouvez utiliser un service comme formspree.io en remplaçant l'attribut action="" -->
+                            <form action="#" method="POST">
+                                <div class="form-group">
+                                    <label for="name">Nom complet ou Entreprise</label>
+                                    <input type="text" id="name" name="name" required placeholder="Votre nom">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Adresse E-mail</label>
+                                    <input type="email" id="email" name="email" required placeholder="Ex: contact@entreprise.com">
+                                </div>
+                                <div class="form-group">
+                                    <label for="hwid">Votre Identifiant Machine (HWID) <span style="font-weight: normal; color: #64748b;">(Optionnel)</span></label>
+                                    <input type="text" id="hwid" name="hwid" placeholder="Si votre demande concerne la licence">
+                                </div>
+                                <div class="form-group">
+                                    <label for="message">Description du problème</label>
+                                    <textarea id="message" name="message" rows="5" required placeholder="Décrivez votre problème en détail..."></textarea>
+                                </div>
+                                <button type="submit" class="btn-submit">Envoyer le message</button>
+                            </form>
+                        </div>
+
+                        <div class="quick-contacts">
+                            <a href="https://m.me/nc.prod.794" target="_blank" class="contact-box">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                                <span>Messenger</span>
+                                <p>Chat en direct</p>
+                            </a>
+                            <div class="contact-box">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                <span>Email direct</span>
+                                <p>support@kgp-compta.nc</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: FAQ -->
+                    <div class="faq-section">
+                        <h2>Foire Aux Questions</h2>
+                        
+                        <details class="faq-item">
+                            <summary>Comment sauvegarder mes données ?</summary>
+                            <div class="faq-content">
+                                <p>C'est très simple et sous votre contrôle. KGP Compta stocke toutes vos informations (factures, clients, paramètres) dans un dossier spécifique sur votre ordinateur.</p>
+                                <p>Allez dans votre dossier utilisateur (ex: <code>C:\Utilisateurs\VotreNom\</code>) et cherchez le dossier nommé <code>kgp_instance</code>. Copiez simplement ce dossier entier sur une clé USB ou un disque dur externe régulièrement.</p>
+                            </div>
+                        </details>
+                        
+                        <details class="faq-item">
+                            <summary>Je change d'ordinateur, comment faire ?</summary>
+                            <div class="faq-content">
+                                <p>1. Copiez votre dossier de sauvegarde <code>kgp_instance</code> depuis votre ancien PC vers le nouveau (au même endroit).</p>
+                                <p>2. Téléchargez et lancez l'application sur le nouveau PC. Un nouvel "Identifiant Machine" sera généré.</p>
+                                <p>3. Contactez-nous via Facebook avec ce nouvel identifiant. Nous transfèrerons votre abonnement et vous fournirons une nouvelle clé d'activation.</p>
+                            </div>
+                        </details>
+
+                        <details class="faq-item">
+                            <summary>J'ai oublié mon mot de passe administrateur</summary>
+                            <div class="faq-content">
+                                <p>Pour des raisons de sécurité liées à la conception "Zéro-Cloud" (les mots de passe sont hachés et stockés uniquement sur votre machine), nous ne pouvons pas réinitialiser votre mot de passe à distance.</p>
+                                <p>Veuillez contacter le support. Une manipulation technique nécessitant de modifier votre fichier de base de données local sera requise.</p>
+                            </div>
+                        </details>
+
+                        <details class="faq-item">
+                            <summary>L'application affiche "Licence Invalide" soudainement</summary>
+                            <div class="faq-content">
+                                <p>Cela peut se produire pour trois raisons principales :</p>
+                                <ol>
+                                    <li>Votre abonnement est arrivé à expiration.</li>
+                                    <li>Un composant majeur de votre ordinateur a été changé (Disque dur, Carte Mère), ce qui a modifié votre Identifiant Machine.</li>
+                                    <li>L'horloge de votre ordinateur a été modifiée manuellement, déclenchant le système anti-fraude temporelle. Veillez à ce que l'heure de votre PC soit réglée sur "Automatique".</li>
+                                </ol>
+                            </div>
+                        </details>
+                        
+                        <details class="faq-item">
+                            <summary>Comment fonctionne l'archivage de fin d'année ?</summary>
+                            <div class="faq-content">
+                                <p>Dans le menu de gauche, cliquez sur <strong>Archives</strong> (uniquement visible par l'administrateur). En cliquant sur le bouton "Archiver et Réinitialiser" :</p>
+                                <p>- L'application crée une copie de sauvegarde de toute l'année écoulée (consultable à tout moment en lecture seule).<br>
+                                - Elle supprime ensuite vos anciennes factures et transactions de trésorerie de l'interface principale.<br>
+                                - <strong>Vos clients, vos fournisseurs et votre stock sont conservés !</strong> Vous repartez sur une base propre pour la nouvelle année.</p>
+                            </div>
+                        </details>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2026 Une création exclusive <strong>K-GOU PROD</strong>. Tous droits réservés.</p>
+            <div class="footer-links">
+                <a href="index.html">Accueil</a>
+                <a href="activation2.html">Activer ma licence</a>
+                <a href="conditions.html">Conditions & Licence</a>
+                <a href="confidentialite.html">Confidentialité</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

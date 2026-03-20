@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarifs - KGP Compta</title>
+    <style>
+        /* --- Reset & Base Styles --- */
+        :root {
+            --primary-color: #3b82f6; 
+            --primary-hover: #2563eb; 
+            --dark-bg: #09090b;
+            --dark-panel: #121214;
+            --dark-border: #27272a;
+            --dark-text: #e2e8f0;
+            --dark-text-secondary: #94a3b8;
+            --accent-color: #a855f7; 
+            --accent-hover: #9333ea;
+            --success-color: #22c55e;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        section { padding: 80px 0; }
+
+        /* --- Header --- */
+        .main-header {
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            background-color: rgba(9, 9, 11, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 100;
+            border-bottom: 1px solid var(--dark-border);
+        }
+        .main-header .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo-container { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .app-icon-small { width: 35px; height: auto; border-radius: 8px; box-shadow: 0 0 10px rgba(168, 85, 247, 0.4); display: block; max-width: 100%;}
+        .logo-text { font-size: 1.5rem; font-weight: 700; color: white; }
+        .logo-text span { color: var(--accent-color); }
+        .main-nav a { margin-left: 30px; color: var(--dark-text-secondary); text-decoration: none; transition: color 0.3s; font-weight: 500;}
+        .main-nav a:hover, .main-nav a.active { color: white; }
+
+        /* --- Page Header --- */
+        .page-header { text-align: center; padding: 80px 0 60px; margin-bottom: 100px; border-bottom: 1px solid var(--dark-border); background: radial-gradient(circle at top, rgba(59,130,246,0.1), transparent 70%); }
+        .page-header h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 1rem; color: white; }
+        .page-header h1 span { color: var(--primary-color); }
+        .page-header p { font-size: 1.25rem; color: var(--dark-text-secondary); max-width: 700px; margin: 0 auto; }
+
+        /* --- Pricing Section --- */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: -30px; /* Overlap with header */
+            position: relative;
+            z-index: 10;
+        }
+
+        .pricing-card {
+            background-color: var(--dark-panel);
+            border: 1px solid var(--dark-border);
+            border-radius: 20px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Active Card (Basic) */
+        .pricing-card.active {
+            border-color: var(--primary-color);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(59, 130, 246, 0.2);
+            transform: translateY(-10px);
+        }
+        .pricing-card.active::before {
+            content: 'Le plus populaire';
+            position: absolute;
+            top: 0; left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 0 0 8px 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Future Cards (Pro/Enterprise) */
+        .pricing-card.disabled {
+            opacity: 0.6;
+            filter: grayscale(100%);
+            cursor: not-allowed;
+        }
+        .pricing-card.disabled::before {
+            content: 'Prochainement';
+            position: absolute;
+            top: 15px; right: -35px;
+            background-color: var(--dark-border);
+            color: var(--dark-text-secondary);
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 4px 40px;
+            transform: rotate(45deg);
+            text-transform: uppercase;
+        }
+
+        .pricing-header { margin-bottom: 30px; text-align: center; }
+        .pricing-header h2 { font-size: 1.8rem; color: white; margin-bottom: 10px; }
+        .pricing-header .price { font-size: 3.5rem; font-weight: 800; color: white; display: flex; align-items: baseline; justify-content: center; gap: 5px;}
+        .pricing-header .currency { font-size: 1.5rem; color: var(--dark-text-secondary); font-weight: 600;}
+        .pricing-header .period { font-size: 1rem; color: var(--dark-text-secondary); font-weight: normal; }
+        .pricing-header p { color: var(--dark-text-secondary); font-size: 0.95rem; margin-top: 10px; }
+
+        .pricing-features { flex-grow: 1; margin-bottom: 40px; list-style: none; }
+        .pricing-features li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            color: var(--dark-text);
+        }
+        .pricing-features li svg { color: var(--success-color); flex-shrink: 0; }
+        .pricing-features li.disabled-feature { color: var(--dark-text-secondary); text-decoration: line-through; }
+        .pricing-features li.disabled-feature svg { color: var(--dark-border); }
+
+        .btn-pricing {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            text-align: center;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .btn-pricing.primary {
+            background-color: var(--primary-color);
+            color: white;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+        .btn-pricing.primary:hover { background-color: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4); }
+        
+        .btn-pricing.outline {
+            background-color: transparent;
+            border: 2px solid var(--dark-border);
+            color: var(--dark-text-secondary);
+            pointer-events: none;
+        }
+
+        /* --- Free Trial Banner --- */
+        .free-trial-banner {
+            margin-top: 80px;
+            background: linear-gradient(135deg, var(--dark-panel), #1a1a1e);
+            border: 1px solid var(--accent-color);
+            border-radius: 20px;
+            padding: 50px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.15);
+        }
+        .free-trial-banner h2 { font-size: 2.2rem; color: white; margin-bottom: 15px; }
+        .free-trial-banner p { font-size: 1.1rem; color: var(--dark-text-secondary); margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .free-trial-banner .btn {
+            display: inline-flex; align-items: center; gap: 10px;
+            background-color: var(--accent-color); color: white;
+            padding: 16px 40px; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 1.1rem;
+            transition: all 0.3s; box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+        }
+        .free-trial-banner .btn:hover { background-color: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 10px 25px rgba(168, 85, 247, 0.6); }
+
+        /* --- Footer --- */
+        .main-footer { padding: 40px 0 20px; background-color: #050505; border-top: 1px solid var(--dark-border); text-align: center; color: var(--dark-text-secondary); margin-top: 60px;}
+        .footer-links { margin: 20px 0; display: flex; justify-content: center; flex-wrap: wrap; gap: 20px;}
+        .footer-links a { color: var(--dark-text-secondary); text-decoration: none; transition: color 0.3s;}
+        .footer-links a:hover { color: var(--accent-color); }
+
+        @media (max-width: 768px) {
+            .page-header h1 { font-size: 2.5rem; }
+            .main-nav { display: none; }
+            .pricing-grid { margin-top: 0; }
+            .pricing-card.active { transform: none; }
+            .pricing-card.active:hover { transform: translateY(-5px); }
+            .free-trial-banner { padding: 40px 20px; }
+            .free-trial-banner h2 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo-container">
+                <img src="icon-xpf.png" alt="KGP Compta" class="app-icon-small">
+                <div class="logo-text">KGP <span>Compta</span></div>
+            </a>
+            <nav class="main-nav">
+                <a href="index.html">Retour à l'accueil</a>
+            
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1>Des tarifs simples, <span>sans surprise.</span></h1>
+                <p>Choisissez la formule adaptée à la taille de votre entreprise. Une licence locale puissante pour reprendre le contrôle de votre gestion.</p>
+            </div>
+        </section>
+
+        <section style="padding-top: 0;">
+            <div class="container">
+                <div class="pricing-grid">
+                    
+                    <!-- PLAN: BASIC (Actif) -->
+                    <div class="pricing-card active">
+                        <div class="pricing-header">
+                            <h2>KGP Compta Basic</h2>
+                            <p>Pour les indépendants, artisans et TPE qui veulent l'essentiel en toute sécurité.</p>
+                            <div class="price">
+                                3 500<span class="currency">XPF</span><span class="period">/mois</span>
+                            </div>
+                            <p>Licence pour 1 ordinateur (HWID unique)</p>
+                        </div>
+                        <ul class="pricing-features">
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Tableau de bord</li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Module Facturation</li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Trésorerie automatisée</li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Gestion de Stock & Alertes</li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Annuaire Clients & Fournisseurs</li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Archivage d'exercice fiscal</li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Support technique</li>
+                        </ul>
+                        <a href="activation2.html" class="btn-pricing primary">S'abonner à la version Basic</a>
+                    </div>
+
+                    <!-- PLAN: PRO (Grisé) -->
+                    <div class="pricing-card disabled">
+                        <div class="pricing-header">
+                            <h2>KGP Compta Pro</h2>
+                            <p>Pour les PME ayant besoin d'outils d'analyse et de sécurité avancés.</p>
+                            <div class="price">
+                                5 200<span class="currency">XPF</span><span class="period">/mois</span>
+                            </div>
+                            <p>Licence jusqu'à 3 ordinateurs</p>
+                        </div>
+                        <ul class="pricing-features">
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Toutes les fonctions Basic</li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Devis et Bons de commande</li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Base de données chiffrée (SQLCipher)</li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Sauvegarde automatique locale</li>
+                        </ul>
+                        <a href="#" class="btn-pricing outline" tabindex="-1">Bientôt disponible</a>
+                    </div>
+
+                    <!-- PLAN: ENTREPRISE (Grisé) -->
+                    <div class="pricing-card disabled">
+                        <div class="pricing-header">
+                            <h2>KGP Entreprise</h2>
+                            <p>Solution réseau complète pour les grandes équipes travaillant sur site.</p>
+                            <div class="price">
+                                7 600<span class="currency">XPF</span><span class="period">/mois</span>
+                            </div>
+                            <p>Licences PC illimitées (Réseau local)</p>
+                        </div>
+                        <ul class="pricing-features">
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Toutes les fonctions Pro</li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Mode Multi-utilisateurs (Comptable, Stock...)</li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Synchronisation réseau local (LAN)</li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Gestion fine des permissions (Roles)</li>
+                        </ul>
+                        <a href="#" class="btn-pricing outline" tabindex="-1">Bientôt disponible</a>
+                    </div>
+
+                </div>
+
+                <!-- Bannière d'Essai Gratuit -->
+                <div class="free-trial-banner">
+                    <h2>Testez KGP Compta gratuitement.</h2>
+                    <p>Découvrez la puissance de la gestion 100% locale. Profitez de la version Basic complète pendant 30 jours, sans aucun engagement. À la fin de l'essai, passez à l'abonnement pour conserver vos données.</p>
+                    <a href="activation2.html" class="btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                        Lancer mon essai de 30 jours
+                    </a>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2026 Une création exclusive <strong>K-GOU PROD</strong>. Tous droits réservés.</p>
+            <div class="footer-links">
+                <a href="support.html">Support technique</a>
+                <a href="conditions.html">Conditions & Licence</a>
+                <a href="confidentialite.html">Confidentialité</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

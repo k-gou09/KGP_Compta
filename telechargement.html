@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Téléchargement - KGP Compta</title>
+    <style>
+        /* --- Reset & Base Styles --- */
+        :root {
+            --primary-color: #3b82f6; 
+            --primary-hover: #2563eb; 
+            --dark-bg: #09090b;
+            --dark-panel: #121214;
+            --dark-border: #27272a;
+            --dark-text: #e2e8f0;
+            --dark-text-secondary: #94a3b8;
+            --accent-color: #a855f7; 
+            --accent-hover: #9333ea;
+            --success-color: #22c55e;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        section { padding: 80px 0; }
+
+        /* --- Header --- */
+        .main-header { padding: 15px 0; position: sticky; top: 0; background-color: rgba(9, 9, 11, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); z-index: 100; border-bottom: 1px solid var(--dark-border); }
+        .main-header .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo-container { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .app-icon-small { width: 35px; height: auto; border-radius: 8px; box-shadow: 0 0 10px rgba(168, 85, 247, 0.4); display: block; max-width: 100%;}
+        .logo-text { font-size: 1.5rem; font-weight: 700; color: white; }
+        .logo-text span { color: var(--accent-color); }
+        .main-nav a { margin-left: 30px; color: var(--dark-text-secondary); text-decoration: none; transition: color 0.3s; font-weight: 500;}
+        .main-nav a:hover, .main-nav a.active { color: white; }
+
+        /* --- Page Header --- */
+        .page-header { text-align: center; padding: 80px 0 60px; margin-bottom: 100px; border-bottom: 1px solid var(--dark-border); background: radial-gradient(circle at top, rgba(168,85,247,0.1), transparent 70%); }
+        .page-header h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 1rem; color: white; }
+        .page-header h1 span { color: var(--accent-color); }
+        .page-header p { font-size: 1.25rem; color: var(--dark-text-secondary); max-width: 700px; margin: 0 auto; }
+
+        /* --- Download Grid --- */
+        .dl-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: -30px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .dl-card {
+            background-color: var(--dark-panel);
+            border: 1px solid var(--dark-border);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Active Card (Basic) */
+        .dl-card.active {
+            border-color: var(--accent-color);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(168, 85, 247, 0.2);
+            transform: translateY(-10px);
+        }
+        .dl-card.active::before {
+            content: 'Disponible';
+            position: absolute;
+            top: 0; left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--accent-color);
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 4px 16px;
+            border-radius: 0 0 8px 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Future Cards (Pro/Enterprise) */
+        .dl-card.disabled {
+            opacity: 0.5;
+            filter: grayscale(100%);
+            pointer-events: none;
+        }
+        .dl-card.disabled::before {
+            content: 'Prochainement';
+            position: absolute;
+            top: 20px; right: -40px;
+            background-color: var(--dark-border);
+            color: var(--dark-text-secondary);
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 6px 45px;
+            transform: rotate(45deg);
+            text-transform: uppercase;
+        }
+
+        .app-icon-large {
+            width: 80px; height: 80px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 25px rgba(168, 85, 247, 0.3);
+        }
+        .dl-card.disabled .app-icon-large { box-shadow: none; filter: contrast(0%); }
+
+        .dl-card h2 { font-size: 1.8rem; color: white; margin-bottom: 10px; }
+        .version-info {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(255,255,255,0.05); padding: 6px 12px; border-radius: 20px;
+            font-size: 0.85rem; color: var(--dark-text-secondary); margin-bottom: 20px;
+        }
+        .dl-card p.desc { color: var(--dark-text-secondary); font-size: 0.95rem; margin-bottom: 30px; flex-grow: 1;}
+
+        .btn-download {
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            width: 100%; padding: 16px; border-radius: 8px;
+            font-weight: 600; font-size: 1.1rem; text-decoration: none;
+            transition: all 0.3s;
+        }
+        .btn-download.primary {
+            background-color: var(--primary-color); color: white;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+        .btn-download.primary:hover { background-color: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4); }
+        .btn-download.outline {
+            background-color: transparent; border: 2px solid var(--dark-border); color: var(--dark-text-secondary);
+        }
+
+        /* --- Sys Reqs & Steps --- */
+        .info-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 80px;
+        }
+        .info-box {
+            background-color: var(--dark-panel); border: 1px solid var(--dark-border);
+            border-radius: 16px; padding: 40px;
+        }
+        .info-box h3 { font-size: 1.5rem; color: white; margin-bottom: 25px; display: flex; align-items: center; gap: 10px;}
+        .info-box h3 svg { color: var(--accent-color); }
+        
+        .req-list { list-style: none; }
+        .req-list li { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--dark-border); color: var(--dark-text-secondary); }
+        .req-list li:last-child { border-bottom: none; }
+        .req-list li strong { color: var(--dark-text); }
+
+        .step-list { list-style: none; counter-reset: steps; }
+        .step-list li { position: relative; padding-left: 50px; margin-bottom: 25px; color: var(--dark-text-secondary); }
+        .step-list li::before {
+            counter-increment: steps; content: counter(steps);
+            position: absolute; left: 0; top: -5px;
+            width: 35px; height: 35px; border-radius: 50%;
+            background: rgba(168, 85, 247, 0.1); color: var(--accent-color);
+            display: flex; align-items: center; justify-content: center;
+            font-weight: bold; border: 1px solid var(--accent-color);
+        }
+        .step-list li strong { color: white; display: block; margin-bottom: 5px; font-size: 1.1rem;}
+        .step-list a { color: var(--primary-color); text-decoration: none; }
+        .step-list a:hover { text-decoration: underline; }
+
+        /* --- Footer --- */
+        .main-footer { padding: 40px 0 20px; background-color: #050505; border-top: 1px solid var(--dark-border); text-align: center; color: var(--dark-text-secondary); margin-top: 60px;}
+        .footer-links { margin: 20px 0; display: flex; justify-content: center; flex-wrap: wrap; gap: 20px;}
+        .footer-links a { color: var(--dark-text-secondary); text-decoration: none; transition: color 0.3s;}
+        .footer-links a:hover { color: var(--accent-color); }
+        .studio-logo { width: 150px; max-width: 100%; margin: 0 auto 20px auto; filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.3)); }
+
+        @media (max-width: 768px) {
+            .page-header h1 { font-size: 2.5rem; }
+            .main-nav { display: none; }
+            .dl-grid { margin-top: 0; }
+            .dl-card.active { transform: none; }
+            .info-grid { grid-template-columns: 1fr; gap: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo-container">
+                <img src="icon-xpf.png" alt="KGP Compta Icon" class="app-icon-small">
+                <div class="logo-text">KGP <span>Compta</span></div>
+            </a>
+            <nav class="main-nav">
+                <a href="index.html">Retour à l'accueil</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1>Télécharger <span>KGP Compta</span></h1>
+                <p>Sélectionnez la version adaptée aux besoins de votre entreprise. Tout fonctionne immédiatement, sans installation ni configuration technique.</p>
+            </div>
+        </section>
+
+        <section style="padding-top: 0;">
+            <div class="container">
+                <div class="dl-grid">
+                    
+                    <!-- VERSION: BASIC (Active) -->
+                    <div class="dl-card active">
+                        <img src="icon-xpf.png" alt="Icon Basic" class="app-icon-large">
+                        <h2>Version Basic</h2>
+                        <div class="version-info">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+                            v1.0 (Dernière version)
+                        </div>
+                        <p class="desc">Idéale pour les indépendants et TPE. Inclut la facturation, la trésorerie, la gestion de stock et l'archivage.</p>
+                        
+                        <!-- VRAI LIEN DE TÉLÉCHARGEMENT GITHUB -->
+                        <a href="https://github.com/k-gou09/KGP_Compta/releases/download/KGP_Compta/KGP_Compta.exe" class="btn-download primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                            Télécharger pour Windows
+                        </a>
+                        <p style="font-size: 0.8rem; color: var(--dark-text-secondary); margin-top: 15px;">Fichier .exe (Environ 50 Mo)</p>
+                    </div>
+
+                    <!-- VERSION: PRO (Grisée) -->
+                    <div class="dl-card disabled">
+                        <img src="icon-xpf.png" alt="Icon Pro" class="app-icon-large">
+                        <h2>Version Pro</h2>
+                        <div class="version-info">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+                            En développement
+                        </div>
+                        <p class="desc">Pour les PME. Base de données chiffrée (SQLCipher), gestion des devis, bons de commandes et jusqu'à 3 postes.</p>
+                        <a href="#" class="btn-download outline">Bientôt disponible</a>
+                    </div>
+
+                    <!-- VERSION: ENTREPRISE (Grisée) -->
+                    <div class="dl-card disabled">
+                        <img src="icon-xpf.png" alt="Icon Entreprise" class="app-icon-large">
+                        <h2>Version Entreprise</h2>
+                        <div class="version-info">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+                            En développement
+                        </div>
+                        <p class="desc">Pour les réseaux locaux. Synchronisation multi-postes (LAN), gestion fine des rôles (Admin, Comptable, Magasinier).</p>
+                        <a href="#" class="btn-download outline">Bientôt disponible</a>
+                    </div>
+
+                </div>
+
+                <!-- Info Grid (Sys Reqs & Steps) -->
+                <div class="info-grid">
+                    
+                    <!-- Configuration requise -->
+                    <div class="info-box">
+                        <h3>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                            Configuration Requise
+                        </h3>
+                        <ul class="req-list">
+                            <li><span>Système d'exploitation</span> <strong>Windows 10 / 11 (64-bit)</strong></li>
+                            <li><span>Processeur</span> <strong>Intel i3 / AMD Ryzen 3 ou sup.</strong></li>
+                            <li><span>Mémoire RAM</span> <strong>4 Go minimum</strong></li>
+                            <li><span>Espace Disque</span> <strong>200 Mo d'espace libre</strong></li>
+                            <li><span>Connexion Internet</span> <strong>Non requise (100% Local)</strong></li>
+                        </ul>
+                    </div>
+
+                    <!-- Étapes d'installation -->
+                    <div class="info-box">
+                        <h3>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+                            Comment démarrer ?
+                        </h3>
+                        <ul class="step-list">
+                            <li>
+                                <strong>1. Téléchargez le fichier</strong>
+                                Cliquez sur le bouton bleu ci-dessus pour récupérer l'installeur (.exe) sur votre PC.
+                            </li>
+                            <li>
+                                <strong>2. Lancez l'application</strong>
+                                Double-cliquez sur le fichier téléchargé. L'application s'ouvrira directement.
+                            </li>
+                            <li>
+                                <strong>3. Demandez votre licence</strong>
+                                L'application est verrouillée par défaut. Suivez notre <a href="activation2.html">tutoriel d'activation</a> pour générer votre clé et profiter de vos 30 jours d'essai gratuit.
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <img src="logo-kgou.png" alt="K-GOU PROD" class="studio-logo">
+            <p>&copy; 2026 Une création exclusive <strong>K-GOU PROD</strong>. Tous droits réservés.</p>
+            <div class="footer-links">
+                <a href="support.html">Support technique</a>
+                <a href="conditions.html">Conditions & Licence</a>
+                <a href="confidentialite.html">Confidentialité</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

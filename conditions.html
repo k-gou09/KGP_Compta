@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conditions Générales - KGP Compta</title>
+    <style>
+        /* --- Reset & Base Styles --- */
+        :root {
+            --primary-color: #3b82f6; 
+            --primary-hover: #2563eb; 
+            --dark-bg: #09090b;
+            --dark-panel: #121214;
+            --dark-border: #27272a;
+            --dark-text: #e2e8f0;
+            --dark-text-secondary: #94a3b8;
+            --accent-color: #a855f7; 
+            --accent-hover: #9333ea;
+            --success-color: #22c55e;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: var(--font-sans); 
+            background-color: var(--dark-bg); 
+            color: var(--dark-text); 
+            line-height: 1.6; 
+            font-size: 16px;
+            background-image: linear-gradient(to bottom, rgba(9, 9, 11, 0.5), rgba(9, 9, 11, 1)), url('bg-stone1.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        /* --- Header --- */
+        .main-header { padding: 15px 0; position: sticky; top: 0; background-color: rgba(9, 9, 11, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); z-index: 100; border-bottom: 1px solid var(--dark-border); }
+        .main-header .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo-container { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .app-icon-small { width: 35px; height: auto; border-radius: 8px; box-shadow: 0 0 10px rgba(168, 85, 247, 0.4); }
+        .logo-text { font-size: 1.5rem; font-weight: 700; color: white; }
+        .logo-text span { color: var(--accent-color); }
+        .main-nav a { margin-left: 30px; color: var(--dark-text-secondary); text-decoration: none; transition: color 0.3s; font-weight: 500;}
+        .main-nav a:hover { color: white; }
+
+        /* --- Page Content --- */
+        .legal-section { padding: 80px 0; }
+        .legal-container { max-width: 800px; margin: 0 auto; background: var(--dark-panel); padding: 50px; border-radius: 16px; border: 1px solid var(--dark-border); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        
+        .legal-header { text-align: center; margin-bottom: 50px; border-bottom: 1px solid var(--dark-border); padding-bottom: 30px; }
+        .legal-header h1 { font-size: 2.5rem; color: white; margin-bottom: 10px; }
+        .legal-header p { color: var(--dark-text-secondary); font-size: 1.1rem; }
+
+        .legal-content h2 { font-size: 1.5rem; color: var(--accent-color); margin: 40px 0 15px; }
+        .legal-content h3 { font-size: 1.2rem; color: white; margin: 25px 0 10px; }
+        .legal-content p { margin-bottom: 15px; color: var(--dark-text-secondary); }
+        .legal-content ul { margin-bottom: 20px; padding-left: 20px; color: var(--dark-text-secondary); }
+        .legal-content li { margin-bottom: 8px; }
+        .legal-content strong { color: var(--dark-text); }
+
+        .warning-box { background: rgba(239, 68, 68, 0.1); border-left: 4px solid #ef4444; padding: 20px; border-radius: 4px 8px 8px 4px; margin: 30px 0; }
+        .warning-box p { color: #fca5a5; margin: 0; }
+
+        /* --- Footer --- */
+        .main-footer { padding: 40px 0 20px; background-color: #050505; border-top: 1px solid var(--dark-border); text-align: center; color: var(--dark-text-secondary); }
+        .footer-links { margin: 20px 0; display: flex; justify-content: center; flex-wrap: wrap; gap: 20px;}
+        .footer-links a { color: var(--dark-text-secondary); text-decoration: none; transition: color 0.3s;}
+        .footer-links a:hover { color: var(--accent-color); }
+
+        @media (max-width: 768px) { .legal-container { padding: 30px 20px; } .legal-header h1 { font-size: 2rem; } .main-nav { display: none; } }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo-container">
+                <img src="icon-xpf.png" alt="KGP Compta" class="app-icon-small">
+                <div class="logo-text">KGP <span>Compta</span></div>
+            </a>
+            <nav class="main-nav">
+                <a href="index.html">Retour à l'accueil</a>
+                <!--<a href="activation.html">Activer ma licence</a>-->
+            </nav>
+        </div>
+    </header>
+
+    <main class="legal-section">
+        <div class="container">
+            <div class="legal-container">
+                <div class="legal-header">
+                    <h1>Conditions Générales d'Utilisation</h1>
+                    <p>Dernière mise à jour : 20 Mars 2026</p>
+                </div>
+
+                <div class="legal-content">
+                    <p>Les présentes Conditions Générales d'Utilisation (ci-après "CGU") régissent l'accès et l'utilisation du logiciel <strong>KGP Compta</strong> édité par le studio <strong>K-GOU PROD</strong>.</p>
+                    <p>L'installation, l'activation ou l'utilisation du logiciel implique l'acceptation sans réserve des présentes CGU par l'utilisateur.</p>
+
+                    <h2>1. Objet</h2>
+                    <p>KGP Compta est un logiciel de gestion locale (facturation, trésorerie, stock) destiné aux professionnels. Le présent contrat a pour objet de définir les conditions dans lesquelles K-GOU PROD concède à l'utilisateur un droit d'utilisation personnel, non exclusif et non transférable du logiciel.</p>
+
+                    <h2>2. Licence et Activation</h2>
+                    <p>L'utilisation de KGP Compta nécessite l'acquisition d'une clé de licence valide, soumise aux conditions tarifaires suivantes :</p>
+                    <ul>
+                        <li><strong>Essai gratuit :</strong> Une licence d'essai gratuite de 30 jours peut être délivrée pour permettre l'évaluation du logiciel sans restriction de fonctionnalités.</li>
+                        <li><strong>Abonnement :</strong> À l'issue de la période d'essai, l'utilisation continue du logiciel requiert la souscription à un abonnement de <strong>3 500 XPF par mois</strong>.</li>
+                        <li><strong>Délivrance :</strong> La clé de licence (d'essai ou payante) est délivrée manuellement par le support technique via Facebook Messenger, généralement dans l'heure suivant la demande, et au maximum dans un délai de 24 heures ouvrées.</li>
+                        <li><strong>Licence liée au matériel :</strong> La licence accordée est strictement liée à l'ordinateur physique sur lequel l'Identifiant Machine (Hardware ID) a été généré. Elle ne peut être transférée sur un autre poste sans l'accord préalable de K-GOU PROD.</li>
+                    </ul>
+
+                    <h2>3. Propriété Intellectuelle</h2>
+                    <p>Le logiciel KGP Compta demeure la propriété exclusive de K-GOU PROD. L'utilisateur s'interdit formellement de copier, distribuer, décompiler, ou tenter de contourner les algorithmes de sécurité et de validation de licence de l'application.</p>
+
+                    <div class="warning-box">
+                        <p><strong>⚠️ Avertissement de sécurité interne :</strong> Le logiciel intègre un mécanisme d'entrelacement cryptographique. Toute tentative de contournement de la licence corrompra volontairement les calculs financiers (TVA/TGC), rendant l'outil inutilisable à des fins comptables légales.</p>
+                    </div>
+
+                    <h2>4. Responsabilités de l'Utilisateur</h2>
+                    <p>Le logiciel fonctionnant à 100% en local, <strong>K-GOU PROD n'a aucun accès à vos données.</strong> Il incombe exclusivement à l'utilisateur de réaliser des sauvegardes régulières du dossier d'installation. L'utilisateur demeure l'unique responsable de l'exactitude de sa comptabilité et de sa conformité fiscale.</p>
+
+                    <h2>5. Support et Mises à jour</h2>
+                    <p>Les abonnés actifs bénéficient d'un support technique prioritaire via la page Facebook de K-GOU PROD, ainsi que de toutes les mises à jour correctives et évolutives publiées durant la période de validité de leur licence.</p>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2026 Une création exclusive <strong>K-GOU PROD</strong>. Tous droits réservés.</p>
+            <div class="footer-links">
+                <a href="activation2.html">Obtenir une licence</a>
+                <a href="confidentialite.html">Confidentialité</a>
+                <a href="support.html">Support technique</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Politique de Confidentialité - KGP Compta</title>
+    <style>
+        /* --- Reset & Base Styles --- */
+        :root {
+            --primary-color: #3b82f6; 
+            --primary-hover: #2563eb; 
+            --dark-bg: #09090b;
+            --dark-panel: #121214;
+            --dark-border: #27272a;
+            --dark-text: #e2e8f0;
+            --dark-text-secondary: #94a3b8;
+            --accent-color: #a855f7; 
+            --accent-hover: #9333ea;
+            --success-color: #22c55e;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 
+            var(--font-sans); 
+            background-color: 
+            var(--dark-bg); 
+            color: var(--dark-text); 
+            line-height: 1.6; 
+            font-size: 16px;         
+            background-image: linear-gradient(to bottom, rgba(9, 9, 11, 0.5), rgba(9, 9, 11, 1)), url('bg-stone1.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        /* --- Header --- */
+        .main-header { padding: 15px 0; position: sticky; top: 0; background-color: rgba(9, 9, 11, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); z-index: 100; border-bottom: 1px solid var(--dark-border); }
+        .main-header .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo-container { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .app-icon-small { width: 35px; height: auto; border-radius: 8px; box-shadow: 0 0 10px rgba(168, 85, 247, 0.4); }
+        .logo-text { font-size: 1.5rem; font-weight: 700; color: white; }
+        .logo-text span { color: var(--accent-color); }
+        .main-nav a { margin-left: 30px; color: var(--dark-text-secondary); text-decoration: none; transition: color 0.3s; font-weight: 500;}
+        .main-nav a:hover { color: white; }
+
+        /* --- Page Content --- */
+        .legal-section { padding: 80px 0; }
+        .legal-container { max-width: 800px; margin: 0 auto; background: var(--dark-panel); padding: 50px; border-radius: 16px; border: 1px solid var(--dark-border); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        
+        .legal-header { text-align: center; margin-bottom: 50px; border-bottom: 1px solid var(--dark-border); padding-bottom: 30px; }
+        .legal-header h1 { font-size: 2.5rem; color: white; margin-bottom: 10px; }
+        .legal-header p { color: var(--dark-text-secondary); font-size: 1.1rem; }
+
+        .legal-content h2 { font-size: 1.5rem; color: var(--accent-color); margin: 40px 0 15px; }
+        .legal-content h3 { font-size: 1.2rem; color: white; margin: 25px 0 10px; }
+        .legal-content p { margin-bottom: 15px; color: var(--dark-text-secondary); }
+        .legal-content ul { margin-bottom: 20px; padding-left: 20px; color: var(--dark-text-secondary); }
+        .legal-content li { margin-bottom: 8px; }
+        .legal-content strong { color: var(--dark-text); }
+
+        .highlight-box { background: rgba(34, 197, 94, 0.1); border-left: 4px solid var(--success-color); padding: 20px; border-radius: 4px 8px 8px 4px; margin: 30px 0; }
+        .highlight-box p { color: #e2e8f0; margin: 0; }
+
+        /* --- Footer --- */
+        .main-footer { padding: 40px 0 20px; background-color: #050505; border-top: 1px solid var(--dark-border); text-align: center; color: var(--dark-text-secondary); }
+        .footer-links { margin: 20px 0; display: flex; justify-content: center; flex-wrap: wrap; gap: 20px;}
+        .footer-links a { color: var(--dark-text-secondary); text-decoration: none; transition: color 0.3s;}
+        .footer-links a:hover { color: var(--accent-color); }
+
+        @media (max-width: 768px) { .legal-container { padding: 30px 20px; } .legal-header h1 { font-size: 2rem; } .main-nav { display: none; } }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo-container">
+                <img src="icon-xpf.png" alt="KGP Compta" class="app-icon-small">
+                <div class="logo-text">KGP <span>Compta</span></div>
+            </a>
+            <nav class="main-nav">
+                <a href="index.html">Retour à l'accueil</a>
+                <!--<a href="activation.html">Activer ma licence</a>-->
+            </nav>
+        </div>
+    </header>
+
+    <main class="legal-section">
+        <div class="container">
+            <div class="legal-container">
+                <div class="legal-header">
+                    <h1>Politique de Confidentialité</h1>
+                    <p>Dernière mise à jour : 20 Mars 2026</p>
+                </div>
+
+                <div class="legal-content">
+                    <p>Le studio de développement <strong>K-GOU PROD</strong> accorde une importance capitale à la confidentialité et à la sécurité de vos données. La présente Politique de Confidentialité vous informe sur la manière dont nous traitons vos données personnelles dans le cadre de l'utilisation du logiciel <strong>KGP Compta</strong>, conformément au Règlement Général sur la Protection des Données (RGPD).</p>
+
+                    <div class="highlight-box">
+                        <p><strong>🔒 Le principe fondamental de KGP Compta : Le Zéro-Cloud</strong><br>
+                        Le logiciel KGP Compta est une application qui s'exécute <strong>exclusivement localement</strong> sur votre ordinateur. <strong>Toutes vos données comptables, financières et commerciales (factures, clients, trésorerie) sont stockées uniquement sur votre disque dur.</strong> K-GOU PROD n'a aucun accès technique, direct ou indirect, à ces données.</p>
+                    </div>
+
+                    <h2>1. Collecte des données personnelles</h2>
+                    <p>Dans le cadre de notre relation commerciale et de la fourniture du logiciel, nous sommes amenés à collecter certaines informations. Ces données ne sont <strong>pas</strong> collectées par le logiciel lui-même, mais lors de votre demande d'activation de licence (essai gratuit ou abonnement) effectuée via nos canaux de communication (notamment Facebook Messenger).</p>
+                    <p>Les données collectées sont les suivantes :</p>
+                    <ul>
+                        <li><strong>Données d'identification :</strong> Nom, Prénom, Nom de l'entreprise.</li>
+                        <li><strong>Données de contact :</strong> Adresse e-mail, Numéro de téléphone.</li>
+                        <li><strong>Données techniques :</strong> L'Identifiant Machine (Hardware ID ou HWID), généré par le logiciel pour lier la licence à votre matériel informatique de façon sécurisée.</li>
+                    </ul>
+
+                    <h2>2. Finalité du traitement</h2>
+                    <p>Vos données personnelles sont traitées pour les finalités suivantes :</p>
+                    <ul>
+                        <li><strong>Génération et gestion des abonnements :</strong> Votre HWID et vos informations d'identité sont nécessaires pour créer une clé d'activation unique, gérer la période d'essai de 30 jours, et assurer le suivi de votre abonnement mensuel.</li>
+                        <li><strong>Support technique :</strong> Assurer le service après-vente, répondre à vos questions et vous aider en cas de changement de matériel informatique (transfert de licence).</li>
+                        <li><strong>Communication et facturation :</strong> Vous informer des mises à jour majeures du logiciel, des alertes de sécurité, vous faire parvenir les factures liées à votre abonnement, ou vous envoyer des offres commerciales pertinentes (uniquement avec votre consentement).</li>
+                    </ul>
+
+                    <h2>3. Base légale du traitement</h2>
+                    <p>Conformément à l'Article 6 du RGPD, le traitement de vos données est basé sur :</p>
+                    <ul>
+                        <li><strong>L'exécution d'un contrat :</strong> Le traitement est nécessaire pour vous fournir la licence du logiciel (essai ou abonnement payant) que vous avez souscrite.</li>
+                        <li><strong>L'intérêt légitime :</strong> Pour la sécurité de notre système de licence (prévention de la fraude et du piratage).</li>
+                    </ul>
+
+                    <h2>4. Partage et transfert des données</h2>
+                    <p><strong>Nous ne vendons, ne louons, ni ne cédons aucune de vos données personnelles à des tiers à des fins de prospection commerciale.</strong></p>
+                    <p>Cependant, la demande de licence s'effectuant via la plateforme Facebook Messenger (Meta Platforms, Inc.), les messages que vous nous envoyez transitent par les serveurs de Meta, soumis à leur propre politique de confidentialité. Nous conservons une trace de ces échanges et de vos données sur des bases de données sécurisées internes à K-GOU PROD, uniquement à des fins de gestion de clientèle et de facturation.</p>
+
+                    <h2>5. Durée de conservation</h2>
+                    <p>Vos données d'identification et de licence sont conservées pour toute la durée de votre abonnement actif à KGP Compta. En cas de résiliation de votre abonnement ou à la fin de votre période d'essai non convertie, vos données seront conservées pendant les durées légales obligatoires (généralement 5 ans pour les données de facturation et les correspondances commerciales) avant d'être définitivement supprimées ou anonymisées.</p>
+
+                    <h2>6. Sécurité de vos données (Votre responsabilité)</h2>
+                    <p>Étant donné que la base de données de KGP Compta (fichier <code>compta.db</code>) réside sur votre propre machine, <strong>vous agissez en tant que Responsable de Traitement</strong> pour les données de vos propres clients (factures, contacts, informations financières).</p>
+                    <p>Il est de votre entière responsabilité d'assurer la sécurité de votre ordinateur (antivirus mis à jour, pare-feu, mot de passe de session robuste) et d'effectuer des sauvegardes régulières et externalisées de votre dossier d'installation pour prévenir toute perte de données (vol, panne matérielle, rançongiciel).</p>
+
+                    <h2>7. Vos droits (RGPD)</h2>
+                    <p>Conformément à la réglementation applicable en matière de protection des données, vous disposez des droits suivants concernant les données que nous (K-GOU PROD) détenons sur vous :</p>
+                    <ul>
+                        <li><strong>Droit d'accès :</strong> Vous pouvez demander à connaître les données que nous possédons vous concernant.</li>
+                        <li><strong>Droit de rectification :</strong> Vous pouvez demander la correction de données inexactes.</li>
+                        <li><strong>Droit à l'effacement (droit à l'oubli) :</strong> Vous pouvez demander la suppression de vos données, sous réserve de nos obligations légales de conservation (ex: factures).</li>
+                        <li><strong>Droit à la limitation du traitement et d'opposition.</strong></li>
+                    </ul>
+                    <p>Pour exercer ces droits, vous pouvez nous contacter directement par message sur notre page Facebook ou à l'adresse de contact qui vous a été communiquée lors de votre souscription. Nous nous engageons à traiter votre demande dans les meilleurs délais.</p>
+
+                    <h2>8. Modifications de la politique de confidentialité</h2>
+                    <p>K-GOU PROD se réserve le droit de modifier cette politique de confidentialité à tout moment pour l'adapter aux évolutions légales ou techniques. Les modifications entreront en vigueur dès leur publication sur cette page.</p>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2026 Une création exclusive <strong>K-GOU PROD</strong>. Tous droits réservés.</p>
+            <div class="footer-links">
+                <a href="activation2.html">Obtenir une licence</a>
+                <a href="conditions.html">Conditions & Licence</a>
+                <a href="support.html">Support technique</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
